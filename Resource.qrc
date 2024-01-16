@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/picture">
+        <file>login.png</file>
+        <file>company.jpg</file>
+        <file>avatar.png</file>
+        <file>AddIcon.png</file>
+        <file>DeleteUser.png</file>
+        <file>SearchIcon.png</file>
+        <file>UpdateUser.png</file>
+        <file>logout.png</file>
+        <file>techIcon.png</file>
+        <file>aboutIcon.png</file>
+    </qresource>
+</RCC>
