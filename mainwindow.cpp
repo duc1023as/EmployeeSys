@@ -7,11 +7,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    dbUtils = new DatabaseUtils();
+    if(!dbUtils->connectToDB("employee_management")){
+        QMessageBox::critical(this,"Error","Checking whether your server is running or not");
+    }
+
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete dbUtils;
 }
 
 void MainWindow::selectedButton(QPushButton *button)
@@ -26,7 +33,7 @@ void MainWindow::unSelectedButton(QPushButton *button)
 
 void MainWindow::on_loginButton_clicked()
 {
-    if(ui->userNameTxT->text() == "" && ui->passwordTxt->text() == ""){
+    if(dbUtils->checkValidUser(ui->userNameTxT->text(),ui->passwordTxt->text())){
         qDebug() << "Login successfully";
         ui->loginStack->setCurrentIndex(1);
     }

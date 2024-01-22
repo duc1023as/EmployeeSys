@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QPushButton>
+#include "databaseutils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,5 +37,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    DatabaseUtils *dbUtils;
 };
 #endif // MAINWINDOW_H
