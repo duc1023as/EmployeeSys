@@ -30,3 +30,19 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Resource.qrc
+
+DISTFILES += \
+    img/AddIcon.png \
+    img/DeleteUser.png \
+    img/SearchIcon.png \
+    img/UpdateUser.png \
+    img/aboutIcon.png \
+    img/avatar.png \
+    img/company.jpg \
+    img/company.png \
+    img/department.png \
+    img/employee.png \
+    img/login.png \
+    img/logout.png \
+    img/project.png \
+    img/techIcon.png
