@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>900</width>
+      <width>1000</width>
       <height>600</height>
      </rect>
     </property>
@@ -113,7 +113,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="Resource.qrc">:/picture/login.png</pixmap>
+        <pixmap resource="Resource.qrc">:/picture/img/login.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -163,7 +163,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="Resource.qrc">:/picture/company.jpg</pixmap>
+       <pixmap resource="Resource.qrc">:/picture/img/company.jpg</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -198,7 +198,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="Resource.qrc">:/picture/avatar.png</pixmap>
+        <pixmap resource="Resource.qrc">:/picture/img/avatar.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -291,7 +291,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/SearchIcon.png</normaloff>:/picture/SearchIcon.png</iconset>
+         <normaloff>:/picture/img/SearchIcon.png</normaloff>:/picture/img/SearchIcon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -336,7 +336,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/AddIcon.png</normaloff>:/picture/AddIcon.png</iconset>
+         <normaloff>:/picture/img/AddIcon.png</normaloff>:/picture/img/AddIcon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -381,7 +381,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/UpdateUser.png</normaloff>:/picture/UpdateUser.png</iconset>
+         <normaloff>:/picture/img/UpdateUser.png</normaloff>:/picture/img/UpdateUser.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -426,7 +426,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/DeleteUser.png</normaloff>:/picture/DeleteUser.png</iconset>
+         <normaloff>:/picture/img/DeleteUser.png</normaloff>:/picture/img/DeleteUser.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -471,7 +471,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/logout.png</normaloff>:/picture/logout.png</iconset>
+         <normaloff>:/picture/img/logout.png</normaloff>:/picture/img/logout.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -516,7 +516,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/techIcon.png</normaloff>:/picture/techIcon.png</iconset>
+         <normaloff>:/picture/img/techIcon.png</normaloff>:/picture/img/techIcon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -561,7 +561,7 @@
        </property>
        <property name="icon">
         <iconset resource="Resource.qrc">
-         <normaloff>:/picture/aboutIcon.png</normaloff>:/picture/aboutIcon.png</iconset>
+         <normaloff>:/picture/img/aboutIcon.png</normaloff>:/picture/img/aboutIcon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -571,6 +571,314 @@
        </property>
       </widget>
      </widget>
+     <widget class="QStackedWidget" name="mainStack">
+      <property name="geometry">
+       <rect>
+        <x>271</x>
+        <y>0</y>
+        <width>629</width>
+        <height>600</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <widget class="QWidget" name="searchPage">
+       <property name="styleSheet">
+        <string notr="true">#searchPage{
+	background:#FFCCFF;
+}</string>
+       </property>
+       <widget class="QLabel" name="employeeImg">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>190</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="Resource.qrc">:/picture/img/employee.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="departmentImg">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>10</y>
+          <width>190</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="Resource.qrc">:/picture/img/department.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="jboImg">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>10</y>
+          <width>190</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="Resource.qrc">:/picture/img/project.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="titleEmployee">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#titleEmployee{
+	color:white;
+}</string>
+        </property>
+        <property name="text">
+         <string>Total number of Employees</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="titleDepart">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>30</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#titleDepart{
+	color:white;
+}</string>
+        </property>
+        <property name="text">
+         <string>Total number of Departments</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="titleJob">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>30</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#titleJob{
+	color:white;
+}</string>
+        </property>
+        <property name="text">
+         <string>Total number of Jobs</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="noEmployee">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>90</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#noEmployee{
+	color:white;
+}</string>
+        </property>
+        <property name="text">
+         <string>000</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="noDepart">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>90</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#noDepart{
+	color:white;
+}</string>
+        </property>
+        <property name="text">
+         <string>000</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="noJob">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>90</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>26</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#noJob{
+	color:white;
+}</string>
+        </property>
+        <property name="text">
+         <string>000</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="searchBar">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>561</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#searchBar{
+	background:	#CCFFCC;
+	border:none;
+}</string>
+        </property>
+        <property name="placeholderText">
+         <string>Search by First Name</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="clearButton">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>170</y>
+          <width>41</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#clearButton{
+	background:#CCFFCC;
+	border:none;
+	color:#CC66FF;
+}
+#clearButton:hover{
+	background:#FF0000;
+}</string>
+        </property>
+        <property name="text">
+         <string>X</string>
+        </property>
+       </widget>
+       <widget class="QTableView" name="infoTable">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>200</y>
+          <width>601</width>
+          <height>391</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#searchBar{
+	color:black;
+}</string>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="addPage"/>
+     </widget>
+     <zorder>mainStack</zorder>
+     <zorder>sideBar</zorder>
     </widget>
    </widget>
   </widget>

@@ -1,14 +1,18 @@
 <RCC>
     <qresource prefix="/picture">
-        <file>login.png</file>
-        <file>company.jpg</file>
-        <file>avatar.png</file>
-        <file>AddIcon.png</file>
-        <file>DeleteUser.png</file>
-        <file>SearchIcon.png</file>
-        <file>UpdateUser.png</file>
-        <file>logout.png</file>
-        <file>techIcon.png</file>
-        <file>aboutIcon.png</file>
+        <file>img/aboutIcon.png</file>
+        <file>img/AddIcon.png</file>
+        <file>img/avatar.png</file>
+        <file>img/company.jpg</file>
+        <file>img/company.png</file>
+        <file>img/DeleteUser.png</file>
+        <file>img/department.png</file>
+        <file>img/employee.png</file>
+        <file>img/login.png</file>
+        <file>img/logout.png</file>
+        <file>img/project.png</file>
+        <file>img/SearchIcon.png</file>
+        <file>img/techIcon.png</file>
+        <file>img/UpdateUser.png</file>
     </qresource>
 </RCC>

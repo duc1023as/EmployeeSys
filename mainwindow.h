@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QPushButton>
-#include "databaseutils.h"
+#include "db/databaseutils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +19,8 @@ public:
     ~MainWindow();
     void selectedButton(QPushButton *button);
     void unSelectedButton(QPushButton *button);
+    void loadData();
+    void checkLength(QString& text);
 
 private slots:
     void on_loginButton_clicked();
@@ -34,6 +36,10 @@ private slots:
     void on_techButton_clicked();
 
     void on_aboutButton_clicked();
+
+    void on_searchBar_returnPressed();
+
+    void on_clearButton_clicked();
 
 private:
     Ui::MainWindow *ui;
