@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QSqlQueryModel>
 #include <QFont>
-#include <QBrush>
 
 class QueryModel : public QSqlQueryModel
 {

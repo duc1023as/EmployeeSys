@@ -34,9 +34,9 @@ void MainWindow::unSelectedButton(QPushButton *button)
 
 void MainWindow::loadData()
 {
-    QString noEmployee = dbUtils->getTotalEmployee();
-    QString noDepartment = dbUtils->getTotalDepartment();
-    QString noJob = dbUtils->getTotalJob();
+    QString noEmployee = dbUtils->getTotalQuantity("employee_id","employees");
+    QString noDepartment = dbUtils->getTotalQuantity("department_id","departments");
+    QString noJob = dbUtils->getTotalQuantity("job_id","jobs");
 
     checkLength(noEmployee);
     checkLength(noDepartment);
@@ -60,6 +60,13 @@ void MainWindow::checkLength(QString &text)
     }
 }
 
+void MainWindow::loadAddPage()
+{
+    dbUtils->setListForCombobox(ui->comboBoxJobTitle,"job_title","jobs");
+    dbUtils->setListForCombobox(ui->comboDepart,"department_name","departments");
+    //dbUtils->setListForCombobox(ui->comboManager,"First_name","employees");
+}
+
 void MainWindow::on_loginButton_clicked()
 {
     if(dbUtils->checkValidUser(ui->userNameTxT->text(),ui->passwordTxt->text())){
@@ -70,6 +77,7 @@ void MainWindow::on_loginButton_clicked()
     else{
         QMessageBox::critical(this,tr("Error"),tr("Failed to login"));
     }
+    //ui->loginStack->setCurrentIndex(1);
 }
 
 
@@ -87,6 +95,8 @@ void MainWindow::on_searchButton_clicked()
     unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->techButton);
     unSelectedButton(ui->aboutButton);
+    loadData();
+    ui->mainStack->setCurrentIndex(0);
 }
 
 
@@ -98,6 +108,8 @@ void MainWindow::on_addButton_clicked()
     unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->techButton);
     unSelectedButton(ui->aboutButton);
+    ui->mainStack->setCurrentIndex(1);
+    loadAddPage();
 }
 
 
@@ -155,5 +167,74 @@ void MainWindow::on_searchBar_returnPressed()
 void MainWindow::on_clearButton_clicked()
 {
     ui->searchBar->setText("");
+}
+
+
+void MainWindow::on_comboBoxJobTitle_currentIndexChanged(int index)
+{
+    qDebug()<<ui->comboBoxJobTitle->currentText();
+    QStringList result;
+    try {
+        result = dbUtils->getSalary(ui->comboBoxJobTitle->currentText());
+    } catch (...) {
+        qDebug() << "Failed to querry";
+    }
+    ui->minSalary->setText(result.at(0));
+    ui->maxSalary->setText(result.at(1));
+}
+
+void MainWindow::on_salary_editingFinished()
+{
+    double salary = ui->salary->text().toDouble();
+    double minSalary = ui->minSalary->text().toDouble();
+    double maxSalary = ui->maxSalary->text().toDouble();
+    if(salary < minSalary || salary > maxSalary){
+        QMessageBox::warning(this,tr("Warning about Salary"),tr("You need to change salary"));
+    }
+}
+
+void MainWindow::on_addEmpButton_clicked()
+{
+    //qDebug()<<dbUtils->getID("employees","employee_id","first_name",ui->comboManager->currentText());
+    Employee employee{
+        ui->fNameTxt->text().trimmed(),
+        ui->lNameTxt->text().trimmed(),
+        ui->emailTxt->text().trimmed(),
+        ui->phoneTxt->text().trimmed(),
+        ui->hireDate->date(),
+        dbUtils->getID("jobs","job_id","job_title",ui->comboBoxJobTitle->currentText()),
+        ui->salary->text().trimmed(),
+        dbUtils->getID("employees","employee_id","first_name",ui->comboManager->currentText()),
+        dbUtils->getID("departments","department_id","department_name",ui->comboDepart->currentText())
+    };
+    if(dbUtils->addEmployee(employee)){
+        qDebug() << dbUtils->getCurrentEmpID();
+        QMessageBox::information(this,"Success","Add new an employee successfully");
+    }
+    else{
+        QMessageBox::warning(this,"Error","Failed to add an new employee");
+    }
+}
+
+void MainWindow::on_comboDepart_currentIndexChanged(int index)
+{
+    dbUtils->getMangerList(ui->comboManager,ui->comboDepart->currentText());
+}
+
+
+void MainWindow::on_addDependButton_clicked()
+{
+    Dependent dependent {
+        ui->fNameDeTxt->text().trimmed(),
+        ui->lNameDeTxt->text().trimmed(),
+        ui->comboBoxRelation->currentText(),
+        dbUtils->getCurrentEmpID()
+    };
+    if(dbUtils->addDependent(dependent)){
+        QMessageBox::information(this,"Success","Add new dependent successfully");
+    }
+    else{
+        QMessageBox::warning(this,"Error","Failed to add new dependent");
+    }
 }
 

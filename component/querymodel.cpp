@@ -36,17 +36,15 @@ QVariant QueryModel::headerData(int section, Qt::Orientation orientation, int ro
         case 6:
             return QString("Department");
             break;
+        case 7:
+            return QString("Manager");
+            break;
         }
     }
     if(role == Qt::FontRole && orientation == Qt::Horizontal){
         QFont boldFont;
         boldFont.setBold(true);
         return boldFont;
-    }
-    if(role == Qt::BackgroundRole && orientation == Qt::Horizontal){
-        QBrush fillBackground;
-        fillBackground.setColor(Qt::blue);
-        return fillBackground;
     }
     return QVariant();
 }

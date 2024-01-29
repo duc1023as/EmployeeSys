@@ -4,12 +4,17 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
-#include "component/querymodel.h"
 #include <QSqlError>
 #include <QDebug>
 #include <QCryptographicHash>
 #include <QTableView>
 #include <QMutex>
+#include <QComboBox>
+
+#include "component/querymodel.h"
+#include "component/comboboxmodel.h"
+#include "globalVariables.h"
+
 
 class DatabaseUtils
 {
@@ -19,17 +24,25 @@ public:
     QString hashPassword(const QString& password);
     bool checkValidUser(const QString& username,const QString& password);
     QSqlDatabase& getInfoDB() const {return *db;}
-    QString getTotalEmployee();
-    QString getTotalDepartment();
-    QString getTotalJob();
+    QString getTotalQuantity(const QString& field,const QString& tableName);
     void setEmployeeDetails(QTableView *table);
     void searchEmployeeDetails(QTableView *table,const QString& searchText);
+    void setListForCombobox(QComboBox *combobox,const QString& filed,const QString& tableName);
+    QStringList getSalary(const QString &jobTitle);
+    int getID(const QString& tableName,const QString& typeID,const QString& field,const QString& value);
+    bool addEmployee(const struct Employee& e);
+    void getMangerList(QComboBox *combobox,const QString& department);
     static DatabaseUtils* getInstance();
+    bool addDependent(const struct Dependent& d);
+    int getCurrentEmpID() const;
+    void setCurrentEmpID(int newCurrentEmpID);
+    int getLastID(const QString& tableName,const QString& field);
 
 private:
     QSqlDatabase *db;
     static DatabaseUtils* instance;
     static QMutex locker;
+    int currentEmpID;
     DatabaseUtils();
 };
 
