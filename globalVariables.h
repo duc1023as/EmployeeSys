@@ -23,4 +23,5 @@ struct Dependent{
     int employee_id;
 };
 
+
 #endif // GLOBALVARIABLES_H

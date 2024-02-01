@@ -37,6 +37,8 @@ public:
     int getCurrentEmpID() const;
     void setCurrentEmpID(int newCurrentEmpID);
     int getLastID(const QString& tableName,const QString& field);
+    QStringList getInfoEmp(const QString& employee_id);
+    bool updateEmployee(const struct Employee& e,const QString& id);
 
 private:
     QSqlDatabase *db;

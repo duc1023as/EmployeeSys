@@ -7,7 +7,7 @@ ComboboxModel::ComboboxModel()
 
 ComboboxModel::~ComboboxModel()
 {
-
+    qDebug() << "Destructor of ComboboxModel";
 }
 
 int ComboboxModel::rowCount(const QModelIndex &parent) const

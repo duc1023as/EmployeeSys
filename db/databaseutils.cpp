@@ -139,10 +139,12 @@ int DatabaseUtils::getID(const QString &tableName, const QString &typeID, const 
 {
 
     QSqlQuery *query = new QSqlQuery();
+    int id;
     query->prepare("SELECT "+typeID+" FROM "+tableName+" WHERE "+field+" ='"+value+"'");
     query->exec();
     query->next();
-    return query->value(0).toInt();
+    id = query->value(0).toInt();
+    return id;
 }
 
 bool DatabaseUtils::addEmployee(const Employee &e)
@@ -232,6 +234,51 @@ int DatabaseUtils::getLastID(const QString &tableName, const QString &field)
     lastId = query->value(0).toInt();
     qDebug() << "Last index "+tableName+":"<<lastId;
     return lastId;
+}
+
+QStringList DatabaseUtils::getInfoEmp(const QString &employee_id)
+{
+    QSqlQuery *query = new QSqlQuery();
+    QStringList result;
+    query->prepare("SELECT e.first_name,e.last_name,e.email,e.phone_number,e.hire_date,j.job_title,e.salary,e1.first_name,d.department_name "
+                   "FROM employees e  "
+                   "LEFT JOIN jobs j ON j.job_id = e.job_id  "
+                   "LEFT JOIN departments d ON d.department_id = e.department_id "
+                   "LEFT JOIN employees e1 ON e1.employee_id = e.manager_id "
+                   "WHERE e.employee_id ="+employee_id);
+    query->exec();
+    query->next();
+    for(int i=0;i<9;i++){
+        result.push_back(query->value(i).toString());
+    }
+    return result;
+}
+
+bool DatabaseUtils::updateEmployee(const Employee &e,const QString& id)
+{
+    QSqlQuery *query = new QSqlQuery();
+    query->prepare("UPDATE employees SET first_name='"
+                   +e.fName+"',last_name='"+e.lName+"',email='"+e.email+"',phone_number='"
+                   +e.phone+"',hire_date='"+e.hireDate.toString()
+                   +"',job_id="+QString::number(e.jobID)+",salary="
+                   +e.salary+",manager_id="+QString::number(e.managerID)
+                   +",department_id="+QString::number(e.departmentID)
+                   +" WHERE employee_id="+id);
+    qDebug()<<("UPDATE employees SET first_name='"
+                   +e.fName+"',last_name='"+e.lName+"',email='"+e.email+"',phone_number='"
+                   +e.phone+"',hire_date='"+e.hireDate.toString()
+                   +"',job_id="+QString::number(e.jobID)+",salary="
+                   +e.salary+",manager_id="+QString::number(e.managerID)
+                   +",department_id="+QString::number(e.departmentID)
+                   +" WHERE employee_id="+id);
+    if(query->exec()){
+        qDebug()<<"Update successfully";
+        return true;
+    }
+    else{
+        qDebug()<<"Failed to update";
+        return false;
+    }
 }
 
 DatabaseUtils* DatabaseUtils::instance = nullptr;

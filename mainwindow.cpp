@@ -64,7 +64,15 @@ void MainWindow::loadAddPage()
 {
     dbUtils->setListForCombobox(ui->comboBoxJobTitle,"job_title","jobs");
     dbUtils->setListForCombobox(ui->comboDepart,"department_name","departments");
-    //dbUtils->setListForCombobox(ui->comboManager,"First_name","employees");
+}
+
+void MainWindow::loadUpdatePage()
+{
+    dbUtils->setListForCombobox(ui->UcomboBoxJobTitle,"job_title","jobs");
+    dbUtils->setListForCombobox(ui->UcomboDepart,"department_name","departments");
+    dbUtils->setListForCombobox(ui->uCbboxEmpID,"employee_id","employees");
+    //dbUtils->getMangerList(ui->UcomboManager,ui->UcomboDepart->currentText());
+
 }
 
 void MainWindow::on_loginButton_clicked()
@@ -72,12 +80,12 @@ void MainWindow::on_loginButton_clicked()
     if(dbUtils->checkValidUser(ui->userNameTxT->text(),ui->passwordTxt->text())){
         qDebug() << "Login successfully";
         ui->loginStack->setCurrentIndex(1);
+        ui->mainStack->setCurrentIndex(0);
         loadData();
     }
     else{
         QMessageBox::critical(this,tr("Error"),tr("Failed to login"));
     }
-    //ui->loginStack->setCurrentIndex(1);
 }
 
 
@@ -92,7 +100,6 @@ void MainWindow::on_searchButton_clicked()
     selectedButton(ui->searchButton);
     unSelectedButton(ui->addButton);
     unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->techButton);
     unSelectedButton(ui->aboutButton);
     loadData();
@@ -105,7 +112,6 @@ void MainWindow::on_addButton_clicked()
     selectedButton(ui->addButton);
     unSelectedButton(ui->searchButton);
     unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->techButton);
     unSelectedButton(ui->aboutButton);
     ui->mainStack->setCurrentIndex(1);
@@ -118,20 +124,10 @@ void MainWindow::on_updateButton_clicked()
     selectedButton(ui->updateButton);
     unSelectedButton(ui->searchButton);
     unSelectedButton(ui->addButton);
-    unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->techButton);
     unSelectedButton(ui->aboutButton);
-}
-
-
-void MainWindow::on_deleteButton_clicked()
-{
-    selectedButton(ui->deleteButton);
-    unSelectedButton(ui->searchButton);
-    unSelectedButton(ui->addButton);
-    unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->techButton);
-    unSelectedButton(ui->aboutButton);
+    ui->mainStack->setCurrentIndex(2);
+    loadUpdatePage();
 }
 
 
@@ -141,7 +137,6 @@ void MainWindow::on_techButton_clicked()
     unSelectedButton(ui->searchButton);
     unSelectedButton(ui->addButton);
     unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->aboutButton);
 }
 
@@ -152,7 +147,6 @@ void MainWindow::on_aboutButton_clicked()
     unSelectedButton(ui->searchButton);
     unSelectedButton(ui->addButton);
     unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->deleteButton);
     unSelectedButton(ui->techButton);
 }
 
@@ -218,6 +212,7 @@ void MainWindow::on_addEmpButton_clicked()
 
 void MainWindow::on_comboDepart_currentIndexChanged(int index)
 {
+
     dbUtils->getMangerList(ui->comboManager,ui->comboDepart->currentText());
 }
 
@@ -235,6 +230,77 @@ void MainWindow::on_addDependButton_clicked()
     }
     else{
         QMessageBox::warning(this,"Error","Failed to add new dependent");
+    }
+}
+
+void MainWindow::on_uCbboxEmpID_currentTextChanged(const QString &arg1)
+{
+    QStringList data = dbUtils->getInfoEmp(ui->uCbboxEmpID->currentText());
+    QStringList salary;
+
+    ui->UfNameTxt->setText(data.at(0));
+    ui->UlNameTxt->setText(data.at(1));
+    ui->UemailTxt->setText(data.at(2));
+    ui->UphoneTxt->setText(data.at(3));
+
+    ui->UhireDate->setDate(QDate::fromString(data.at(4),"yyyy-MM-dd"));
+    qDebug() << QDate::fromString(data.at(4),"yyyy-MM-dd");
+
+    ui->UcomboBoxJobTitle->setCurrentText(data.at(5));
+    ui->Usalary->setText(data.at(6));
+    ui->UcomboDepart->setCurrentText(data.at(8));
+//    ui->UcomboManager->setCurrentText(data.at(7));
+    ui->UCurrentManager->setText(data.at(7));
+    qDebug() << data.at(7);
+
+    salary = dbUtils->getSalary(data.at(5));
+    ui->UminSalary->setText(salary.at(0));
+    ui->UmaxSalary->setText(salary.at(1));
+}
+
+
+void MainWindow::on_UcomboDepart_currentTextChanged(const QString &arg1)
+{
+    dbUtils->getMangerList(ui->UcomboManager,ui->UcomboDepart->currentText());
+}
+
+QString MainWindow::getManagerName() const
+{
+    return managerName;
+}
+
+void MainWindow::setManagerName(const QString &newManagerName)
+{
+    managerName = newManagerName;
+}
+
+
+
+void MainWindow::on_UcomboManager_activated(int index)
+{
+    //ui->UCurrentManager->setText(ui->UcomboManager->currentText());
+}
+
+
+void MainWindow::on_updateEmpButton_clicked()
+{
+    Employee e;
+    e.fName = ui->UfNameTxt->text();
+    e.lName = ui->UlNameTxt->text();
+    e.email = ui->UemailTxt->text();
+    e.hireDate = ui->UhireDate->date();
+    e.phone = ui->UphoneTxt->text();
+    e.salary = ui->Usalary->text();
+    e.departmentID = dbUtils->getID("departments","department_id","department_name",ui->UcomboDepart->currentText());
+    e.jobID = dbUtils->getID("jobs","job_id","job_title",ui->UcomboBoxJobTitle->currentText());
+    e.managerID = dbUtils->getID("employees","employee_id","first_name",ui->UcomboManager->currentText());
+
+    qDebug() <<e.phone;
+    if(dbUtils->updateEmployee(e,ui->uCbboxEmpID->currentText())){
+        QMessageBox::information(this,"Success","Update Successfully");
+    }
+    else{
+        QMessageBox::warning(this,"Error","Failed to update");
     }
 }
 
