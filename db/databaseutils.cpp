@@ -39,7 +39,8 @@ QString DatabaseUtils::hashPassword(const QString &password)
 bool DatabaseUtils::checkValidUser(const QString &username, const QString &password)
 {
     QStringList result;
-    QSqlQuery* query = new QSqlQuery(*db);
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
+    //QSqlQuery* query = new QSqlQuery(*db);
     query->prepare("SELECT username,hashed_password,user_role FROM user_info WHERE username = '"+username+"';");
     if(query->exec()){
         query->next();
@@ -64,7 +65,8 @@ bool DatabaseUtils::checkValidUser(const QString &username, const QString &passw
 
 QString DatabaseUtils::getTotalQuantity(const QString& field,const QString& tableName)
 {
-    QSqlQuery *query = new QSqlQuery(*db);
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
+    //QSqlQuery *query = new QSqlQuery(*db);
     QString result;
     query->prepare("SELECT COUNT(" + field + ") FROM "+tableName);
     if(query->exec()){
@@ -79,7 +81,7 @@ QString DatabaseUtils::getTotalQuantity(const QString& field,const QString& tabl
 }
 
 void DatabaseUtils::setEmployeeDetails(QTableView *table)
-{
+{ 
     QueryModel *queryModel = new QueryModel();
     queryModel->setQuery("SELECT e.employee_id,e.first_name,e.last_name,e.email,e.phone_number,j.job_title,d.department_name,m.first_name "
                          "FROM employees e "
@@ -104,7 +106,8 @@ void DatabaseUtils::searchEmployeeDetails(QTableView *table, const QString &sear
 void DatabaseUtils::setListForCombobox(QComboBox *combobox,const QString& filed,const QString& tableName)
 {
     QStringList result;
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     ComboboxModel *model = new ComboboxModel();
     query->prepare("SELECT "+filed+ " FROM "+tableName);
     if(query->exec()){
@@ -122,7 +125,8 @@ void DatabaseUtils::setListForCombobox(QComboBox *combobox,const QString& filed,
 QStringList DatabaseUtils::getSalary(const QString &jobTitle)
 {
     QStringList result;
-    QSqlQuery *query =  new QSqlQuery();
+    //QSqlQuery *query =  new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     query->prepare("SELECT min_salary,max_salary FROM jobs WHERE job_title='"+jobTitle+"'");
     if(query->exec()){
         query->next();
@@ -138,7 +142,8 @@ QStringList DatabaseUtils::getSalary(const QString &jobTitle)
 int DatabaseUtils::getID(const QString &tableName, const QString &typeID, const QString &field, const QString &value)
 {
 
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     int id;
     query->prepare("SELECT "+typeID+" FROM "+tableName+" WHERE "+field+" ='"+value+"'");
     query->exec();
@@ -149,7 +154,8 @@ int DatabaseUtils::getID(const QString &tableName, const QString &typeID, const 
 
 bool DatabaseUtils::addEmployee(const Employee &e)
 {
-    QSqlQuery* query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
+    //QSqlQuery* query = new QSqlQuery();
     //QString test = "INSERT INTO employees(first_name,last_name,email,phone_number,hire_date,job_id,salary,manager_id,department_id) VALUES('"+e.fName+"','"+e.lName+"','"+e.email+"','"+e.phone+"',"+e.hireDate.toString()+","+QString::number(e.jobID)+","+e.salary+","+QString::number(e.managerID)+","+QString::number(e.departmentID)+")";;
     int lastID = getLastID("employees","employee_id");
     query->prepare("INSERT INTO employees(employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,manager_id,department_id) "
@@ -171,7 +177,8 @@ bool DatabaseUtils::addEmployee(const Employee &e)
 
 void DatabaseUtils::getMangerList(QComboBox *combobox,const QString& department)
 {
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     QStringList result;
     ComboboxModel *comboModel = new ComboboxModel();
     int departmentID = getID("departments","department_id","department_name",department);
@@ -200,7 +207,8 @@ DatabaseUtils *DatabaseUtils::getInstance()
 
 bool DatabaseUtils::addDependent(const Dependent &d)
 {
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     int lastId = getLastID("dependents","dependent_id");
     qDebug() << "Last index dependets:"<<lastId;
     query->prepare("INSERT INTO dependents(dependent_id,first_name,last_name,relationship,employee_id) VALUES("+QString::number(++lastId)+",'"+d.fName+"','"+d.lName+"','"+d.realtionship+"',"+QString::number(d.employee_id)+")");
@@ -226,7 +234,8 @@ void DatabaseUtils::setCurrentEmpID(int newCurrentEmpID)
 
 int DatabaseUtils::getLastID(const QString &tableName, const QString &field)
 {
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     int lastId;
     query->prepare("SELECT MAX("+field+") FROM "+tableName);
     query->exec();
@@ -238,7 +247,8 @@ int DatabaseUtils::getLastID(const QString &tableName, const QString &field)
 
 QStringList DatabaseUtils::getInfoEmp(const QString &employee_id)
 {
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     QStringList result;
     query->prepare("SELECT e.first_name,e.last_name,e.email,e.phone_number,e.hire_date,j.job_title,e.salary,e1.first_name,d.department_name "
                    "FROM employees e  "
@@ -256,7 +266,8 @@ QStringList DatabaseUtils::getInfoEmp(const QString &employee_id)
 
 bool DatabaseUtils::updateEmployee(const Employee &e,const QString& id)
 {
-    QSqlQuery *query = new QSqlQuery();
+    //QSqlQuery *query = new QSqlQuery();
+    QScopedPointer<QSqlQuery> query(new QSqlQuery(*db));
     query->prepare("UPDATE employees SET first_name='"
                    +e.fName+"',last_name='"+e.lName+"',email='"+e.email+"',phone_number='"
                    +e.phone+"',hire_date='"+e.hireDate.toString()

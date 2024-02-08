@@ -36,8 +36,6 @@ private slots:
     void on_searchButton_clicked();
     void on_addButton_clicked();
     void on_updateButton_clicked();
-    void on_techButton_clicked();
-    void on_aboutButton_clicked();
     void on_searchBar_returnPressed();
     void on_clearButton_clicked();
     void on_comboBoxJobTitle_currentIndexChanged(int index);
@@ -46,12 +44,12 @@ private slots:
     void on_comboDepart_currentIndexChanged(int index);
     void on_addDependButton_clicked();
     void on_uCbboxEmpID_currentTextChanged(const QString &arg1);
-
     void on_UcomboDepart_currentTextChanged(const QString &arg1);
-
     void on_UcomboManager_activated(int index);
-
     void on_updateEmpButton_clicked();
+
+
+    void on_deleteEmpButton_clicked();
 
 private:
     Ui::MainWindow *ui;

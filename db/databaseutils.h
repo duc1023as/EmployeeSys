@@ -10,6 +10,7 @@
 #include <QTableView>
 #include <QMutex>
 #include <QComboBox>
+#include <QScopedPointer>
 
 #include "component/querymodel.h"
 #include "component/comboboxmodel.h"

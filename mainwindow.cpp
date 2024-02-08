@@ -92,6 +92,9 @@ void MainWindow::on_loginButton_clicked()
 void MainWindow::on_logoutButton_clicked()
 {
     ui->loginStack->setCurrentIndex(0);
+    selectedButton(ui->searchButton);
+    unSelectedButton(ui->addButton);
+    unSelectedButton(ui->updateButton);
 }
 
 
@@ -100,8 +103,6 @@ void MainWindow::on_searchButton_clicked()
     selectedButton(ui->searchButton);
     unSelectedButton(ui->addButton);
     unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->techButton);
-    unSelectedButton(ui->aboutButton);
     loadData();
     ui->mainStack->setCurrentIndex(0);
 }
@@ -112,8 +113,6 @@ void MainWindow::on_addButton_clicked()
     selectedButton(ui->addButton);
     unSelectedButton(ui->searchButton);
     unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->techButton);
-    unSelectedButton(ui->aboutButton);
     ui->mainStack->setCurrentIndex(1);
     loadAddPage();
 }
@@ -124,32 +123,9 @@ void MainWindow::on_updateButton_clicked()
     selectedButton(ui->updateButton);
     unSelectedButton(ui->searchButton);
     unSelectedButton(ui->addButton);
-    unSelectedButton(ui->techButton);
-    unSelectedButton(ui->aboutButton);
     ui->mainStack->setCurrentIndex(2);
     loadUpdatePage();
 }
-
-
-void MainWindow::on_techButton_clicked()
-{
-    selectedButton(ui->techButton);
-    unSelectedButton(ui->searchButton);
-    unSelectedButton(ui->addButton);
-    unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->aboutButton);
-}
-
-
-void MainWindow::on_aboutButton_clicked()
-{
-    selectedButton(ui->aboutButton);
-    unSelectedButton(ui->searchButton);
-    unSelectedButton(ui->addButton);
-    unSelectedButton(ui->updateButton);
-    unSelectedButton(ui->techButton);
-}
-
 
 void MainWindow::on_searchBar_returnPressed()
 {
@@ -258,7 +234,6 @@ void MainWindow::on_uCbboxEmpID_currentTextChanged(const QString &arg1)
     ui->UmaxSalary->setText(salary.at(1));
 }
 
-
 void MainWindow::on_UcomboDepart_currentTextChanged(const QString &arg1)
 {
     dbUtils->getMangerList(ui->UcomboManager,ui->UcomboDepart->currentText());
@@ -274,11 +249,9 @@ void MainWindow::setManagerName(const QString &newManagerName)
     managerName = newManagerName;
 }
 
-
-
 void MainWindow::on_UcomboManager_activated(int index)
 {
-    //ui->UCurrentManager->setText(ui->UcomboManager->currentText());
+    ui->UCurrentManager->setText(ui->UcomboManager->currentText());
 }
 
 
@@ -302,5 +275,19 @@ void MainWindow::on_updateEmpButton_clicked()
     else{
         QMessageBox::warning(this,"Error","Failed to update");
     }
+}
+
+void MainWindow::on_deleteEmpButton_clicked()
+{
+    QSharedPointer<QSqlQuery> query(new QSqlQuery());
+    query->prepare("DELETE FROM employees WHERE employee_id = "+ui->uCbboxEmpID->currentText());
+    if(query->exec()){
+        QMessageBox::information(this,"Success","Delete employee successfully");
+        dbUtils->setListForCombobox(ui->uCbboxEmpID,"employee_id","employees");
+    }
+    else{
+        QMessageBox::warning(this,"Error","Failed to delete employee");
+    }
+
 }
 

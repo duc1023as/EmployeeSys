@@ -394,7 +394,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>400</y>
+         <y>320</y>
          <width>271</width>
          <height>41</height>
         </rect>
@@ -427,96 +427,6 @@
        <property name="icon">
         <iconset resource="Resource.qrc">
          <normaloff>:/picture/img/logout.png</normaloff>:/picture/img/logout.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="techButton">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>320</y>
-         <width>271</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>11</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#techButton{
-	background:#003366;
-	border:none;
-	color:white;
-	text-align:left;
-	padding-left:26px;
-}
-#techButton:hover{
-	border:none;
-	text-align:left;
-	padding-left:26px;
-	background:#6666FF;
-	color:white;
-}</string>
-       </property>
-       <property name="text">
-        <string>Technologies Used</string>
-       </property>
-       <property name="icon">
-        <iconset resource="Resource.qrc">
-         <normaloff>:/picture/img/techIcon.png</normaloff>:/picture/img/techIcon.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="aboutButton">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>360</y>
-         <width>271</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>11</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#aboutButton{
-	background:#003366;
-	border:none;
-	color:white;
-	text-align:left;
-	padding-left:26px;
-}
-#aboutButton:hover{
-	border:none;
-	text-align:left;
-	padding-left:26px;
-	background:#6666FF;
-	color:white;
-}</string>
-       </property>
-       <property name="text">
-        <string>About App</string>
-       </property>
-       <property name="icon">
-        <iconset resource="Resource.qrc">
-         <normaloff>:/picture/img/aboutIcon.png</normaloff>:/picture/img/aboutIcon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
